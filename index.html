@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hospital Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🏥 Hospital Management System</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Patients</a></li>
+        <li><a href="#">Doctors</a></li>
+        <li><a href="#">Appointments</a></li>
+        <li><a href="#">Billing</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Patient Registration</h2>
+      <form id="patientForm">
+        <input type="text" placeholder="Full Name" required>
+        <input type="number" placeholder="Age" required>
+        <input type="text" placeholder="Disease/Condition" required>
+        <button type="submit">Register</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Appointments</h2>
+      <form id="appointmentForm">
+        <input type="text" placeholder="Patient Name" required>
+        <input type="text" placeholder="Doctor Name" required>
+        <input type="date" required>
+        <button type="submit">Book Appointment</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Billing</h2>
+      <form id="billingForm">
+        <input type="text" placeholder="Patient Name" required>
+        <input type="number" placeholder="Amount" required>
+        <button type="submit">Generate Bill</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Hospital Management System | Designed by Divakar</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
