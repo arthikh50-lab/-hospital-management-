@@ -15,6 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Database Connection & In-Memory Fallback State
 let useMongo = true;
+let isConnected = false;
 
 const memoryDb = {
   patients: [
@@ -33,18 +34,38 @@ const memoryDb = {
   ]
 };
 
-mongoose.connect(MONGO_URI)
-  .then(() => {
+const connectDB = async () => {
+  if (isConnected) {
+    return;
+  }
+  try {
+    // serverSelectionTimeoutMS fails fast (5s) instead of buffering endlessly (10s+)
+    const db = await mongoose.connect(MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
+    });
+    isConnected = db.connections[0].readyState === 1;
+    useMongo = true;
     console.log('Successfully connected to MongoDB.');
-  })
-  .catch(err => {
+  } catch (err) {
     console.warn('\n==================================================================');
     console.warn('[WARNING] MongoDB connection failed:', err.message);
     console.warn('The server will start using a temporary in-memory database fallback.');
     console.warn('Note: Data will not persist after the server restarts.');
     console.warn('==================================================================\n');
     useMongo = false;
-  });
+  }
+};
+
+// Start connection asynchronously for local dev
+connectDB();
+
+// Middleware: Ensure DB connection is active before processing any API request (Crucial for Vercel Serverless)
+app.use(async (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    await connectDB();
+  }
+  next();
+});
 
 // Schemas & Models
 const patientSchema = new mongoose.Schema({
