@@ -319,9 +319,14 @@ app.get('*', (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`\n==================================================================`);
-  console.log(`Hospital Management System Backend started successfully on Port ${PORT}`);
-  console.log(`Open http://localhost:${PORT} in your browser to view the application.`);
-  console.log(`==================================================================\n`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`\n==================================================================`);
+    console.log(`Hospital Management System Backend started successfully on Port ${PORT}`);
+    console.log(`Open http://localhost:${PORT} in your browser to view the application.`);
+    console.log(`==================================================================\n`);
+  });
+}
+
+// Export the app for Vercel
+module.exports = app;
