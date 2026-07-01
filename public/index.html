@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareSync - Hospital Management System</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glowing shapes -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+          </svg>
+        </div>
+        <span class="brand-text">CareSync</span>
+      </div>
+      
+      <nav class="sidebar-menu">
+        <button class="nav-item active" data-tab="dashboard">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" />
+          </svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-tab="patients">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <span>Patients</span>
+        </button>
+        <button class="nav-item" data-tab="appointments">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span>Appointments</span>
+        </button>
+        <button class="nav-item" data-tab="billing">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+          <span>Billing</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="db-status-container">
+          <span class="status-indicator-dot pulsing"></span>
+          <div class="status-details">
+            <span class="status-label">Database</span>
+            <span class="status-value" id="dbStatusText">Connecting...</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="top-header">
+        <div class="header-title">
+          <h1 id="pageTitle">Dashboard</h1>
+          <p id="pageSubtitle">Overview of clinical activities and statistics.</p>
+        </div>
+        <div class="header-profile">
+          <div class="search-box">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" id="globalSearch" placeholder="Search records...">
+          </div>
+          <div class="profile-info">
+            <div class="profile-avatar">D</div>
+            <div class="profile-meta">
+              <span class="profile-name">Divakar</span>
+              <span class="profile-role">Administrator</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Panels -->
+      <div class="content-body">
+        
+        <!-- DASHBOARD TAB -->
+        <section class="tab-panel active" id="dashboard-tab">
+          <!-- Stats Summary Grid -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon-wrapper blue">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <div class="stat-data">
+                <span class="stat-label">Total Patients</span>
+                <h3 class="stat-number" id="statPatients">0</h3>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrapper purple">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div class="stat-data">
+                <span class="stat-label">Scheduled Appts</span>
+                <h3 class="stat-number" id="statAppointments">0</h3>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrapper green">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="stat-data">
+                <span class="stat-label">Collected Revenue</span>
+                <h3 class="stat-number" id="statRevenuePaid">$0</h3>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon-wrapper orange">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="stat-data">
+                <span class="stat-label">Pending Billing</span>
+                <h3 class="stat-number" id="statRevenueUnpaid">$0</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Grid -->
+          <div class="dashboard-grid">
+            <!-- Left Side: Recent Activity Logs -->
+            <div class="glass-card flex-2">
+              <div class="card-header">
+                <h2>Clinical Operations Feed</h2>
+                <span class="badge badge-info">Realtime</span>
+              </div>
+              <div class="feed-container" id="activityFeed">
+                <div class="feed-placeholder">Loading recent actions...</div>
+              </div>
+            </div>
+
+            <!-- Right Side: Fast Actions -->
+            <div class="glass-card flex-1">
+              <div class="card-header">
+                <h2>Quick Actions</h2>
+              </div>
+              <div class="quick-actions-list">
+                <button class="action-btn" id="shortcutRegister">
+                  <div class="action-icon blue">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                    </svg>
+                  </div>
+                  <div class="action-details">
+                    <span class="action-title">Add Patient</span>
+                    <span class="action-desc">Register a new patient record</span>
+                  </div>
+                </button>
+
+                <button class="action-btn" id="shortcutBook">
+                  <div class="action-icon purple">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                  </div>
+                  <div class="action-details">
+                    <span class="action-title">Book Appointment</span>
+                    <span class="action-desc">Schedule doctor consultation</span>
+                  </div>
+                </button>
+
+                <button class="action-btn" id="shortcutBill">
+                  <div class="action-icon green">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <div class="action-details">
+                    <span class="action-title">Generate Invoice</span>
+                    <span class="action-desc">Create billing statement</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PATIENTS TAB -->
+        <section class="tab-panel" id="patients-tab">
+          <div class="page-grid">
+            <!-- Left Side: Registration Form -->
+            <div class="glass-card">
+              <div class="card-header">
+                <h2>Patient Registration</h2>
+              </div>
+              <form id="patientForm" class="modern-form">
+                <div class="form-group">
+                  <label for="regName">Full Name</label>
+                  <input type="text" id="regName" placeholder="e.g. Eleanor Vance" required>
+                </div>
+                <div class="form-group">
+                  <label for="regAge">Age</label>
+                  <input type="number" id="regAge" placeholder="e.g. 34" min="0" max="130" required>
+                </div>
+                <div class="form-group">
+                  <label for="regDisease">Disease/Condition</label>
+                  <input type="text" id="regDisease" placeholder="e.g. Asthma, Pneumonia" required>
+                </div>
+                <button type="submit" class="submit-btn">
+                  <span>Register Patient</span>
+                  <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+
+            <!-- Right Side: Patient Directory -->
+            <div class="glass-card large-table-card">
+              <div class="card-header">
+                <h2>Patient Database</h2>
+                <div class="header-actions">
+                  <span class="count-badge" id="patientCount">0 Total</span>
+                </div>
+              </div>
+              <div class="table-container">
+                <table class="modern-table">
+                  <thead>
+                    <tr>
+                      <th>Patient Name</th>
+                      <th>Age</th>
+                      <th>Condition</th>
+                      <th>Reg. Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="patientTableBody">
+                    <tr>
+                      <td colspan="4" class="empty-state">No patients registered yet.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- APPOINTMENTS TAB -->
+        <section class="tab-panel" id="appointments-tab">
+          <div class="page-grid">
+            <!-- Left Side: Booking Form -->
+            <div class="glass-card">
+              <div class="card-header">
+                <h2>Book Appointment</h2>
+              </div>
+              <form id="appointmentForm" class="modern-form">
+                <div class="form-group">
+                  <label for="appPatient">Patient Name</label>
+                  <!-- We can select from registered patients list dynamically -->
+                  <input type="text" id="appPatient" placeholder="e.g. Eleanor Vance" required list="patientList">
+                  <datalist id="patientList"></datalist>
+                </div>
+                <div class="form-group">
+                  <label for="appDoctor">Doctor Name</label>
+                  <input type="text" id="appDoctor" placeholder="e.g. Dr. Helen Cho" required>
+                </div>
+                <div class="form-group">
+                  <label for="appDate">Appointment Date & Time</label>
+                  <input type="datetime-local" id="appDate" required>
+                </div>
+                <button type="submit" class="submit-btn purple-btn">
+                  <span>Schedule Consultation</span>
+                  <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+
+            <!-- Right Side: Schedule Timeline -->
+            <div class="glass-card large-table-card">
+              <div class="card-header">
+                <h2>Appointment Schedule</h2>
+                <div class="header-actions">
+                  <span class="count-badge" id="appointmentCount">0 Scheduled</span>
+                </div>
+              </div>
+              <div class="table-container">
+                <table class="modern-table">
+                  <thead>
+                    <tr>
+                      <th>Patient</th>
+                      <th>Assigned Doctor</th>
+                      <th>Date & Time</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="appointmentTableBody">
+                    <tr>
+                      <td colspan="4" class="empty-state">No appointments scheduled.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BILLING TAB -->
+        <section class="tab-panel" id="billing-tab">
+          <div class="page-grid">
+            <!-- Left Side: Invoice Generator Form -->
+            <div class="glass-card">
+              <div class="card-header">
+                <h2>Generate Invoice</h2>
+              </div>
+              <form id="billingForm" class="modern-form">
+                <div class="form-group">
+                  <label for="billPatient">Patient Name</label>
+                  <input type="text" id="billPatient" placeholder="e.g. Eleanor Vance" required list="patientList">
+                </div>
+                <div class="form-group">
+                  <label for="billAmount">Billing Amount ($)</label>
+                  <input type="number" id="billAmount" placeholder="e.g. 350" min="1" required>
+                </div>
+                <button type="submit" class="submit-btn green-btn">
+                  <span>Generate Bill</span>
+                  <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+
+            <!-- Right Side: Billing Logs -->
+            <div class="glass-card large-table-card">
+              <div class="card-header">
+                <h2>Invoice Ledger</h2>
+                <div class="header-actions">
+                  <span class="count-badge" id="billCount">0 Invoices</span>
+                </div>
+              </div>
+              <div class="table-container">
+                <table class="modern-table">
+                  <thead>
+                    <tr>
+                      <th>Patient Name</th>
+                      <th>Invoice Date</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="billingTableBody">
+                    <tr>
+                      <td colspan="5" class="empty-state">No transactions recorded.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- JavaScript Entry Point -->
+  <script src="script.js"></script>
+</body>
+</html>
